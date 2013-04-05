@@ -112,7 +112,11 @@ function calculate_rate($file, $num_lines) {
       break;
     }
   }
-  return round($num_lines/$ago, 4);
+
+  if ($ago) # To avoid division by 0
+    return round($num_lines/$ago, 4);
+
+  return 0;
 }
 
 function get_time($file, $num_lines) {

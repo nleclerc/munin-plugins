@@ -107,9 +107,11 @@ function calculate_rate($file, $num_lines) {
   }   
    
    $bytes = exec(sprintf("tail -n %s %s  | cut -d' ' -f10 | awk -F: '{total+=\$1} END{print total}'", $num_lines, $file));
-   
 
-   return round($bytes/$ago, 4);
+  if ($ago) # To avoid division by 0
+    return round($bytes/$ago, 4);
+
+  return 0;
 }
 
 function get_time($file, $num_lines) {
